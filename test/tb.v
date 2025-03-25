@@ -44,21 +44,21 @@ module tb ();
 
     rst_n = 1;  // Release reset
     
-    // Apply test inputs
+    // Test cases
     #20 ui_in = 8'd3;  uio_in = 8'd4;  #50;
-    $display("Time=%0t | x=%d, y=%d | r=%d (Expected: 5)", $time, ui_in, uio_in, uo_out);
+    $display("Test 1: x=%d, y=%d | r=%d (Expected: 5)", ui_in, uio_in, uo_out);
     
     #20 ui_in = 8'd5;  uio_in = 8'd12; #50;
-    $display("Time=%0t | x=%d, y=%d | r=%d (Expected: 13)", $time, ui_in, uio_in, uo_out);
+    $display("Test 2: x=%d, y=%d | r=%d (Expected: 13)", ui_in, uio_in, uo_out);
     
     #20 ui_in = 8'd0;  uio_in = 8'd10; #50;
-    $display("Time=%0t | x=%d, y=%d | r=%d (Expected: 10)", $time, ui_in, uio_in, uo_out);
+    $display("Test 3: x=%d, y=%d | r=%d (Expected: 10)", ui_in, uio_in, uo_out);
     
     #20 ui_in = 8'd10; uio_in = 8'd0;  #50;
-    $display("Time=%0t | x=%d, y=%d | r=%d (Expected: 10)", $time, ui_in, uio_in, uo_out);
+    $display("Test 4: x=%d, y=%d | r=%d (Expected: 10)", ui_in, uio_in, uo_out);
     
     #20 ui_in = 8'd7;  uio_in = 8'd24; #50;
-    $display("Time=%0t | x=%d, y=%d | r=%d (Expected: 25)", $time, ui_in, uio_in, uo_out);
+    $display("Test 5: x=%d, y=%d | r=%d (Expected: 25)", ui_in, uio_in, uo_out);
     
     #50 $finish;
   end
