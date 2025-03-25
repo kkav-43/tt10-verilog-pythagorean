@@ -1,7 +1,6 @@
-# Rectangular to Cylindrical Converter
-
+# PYTHAGOREAN CALCULATOR
 ## Project Overview
-This Tiny Tapeout project implements a hardware module that converts rectangular (x, y) coordinates to cylindrical radius (r) using efficient hardware-friendly algorithms.
+This Tiny Tapeout project implements a hardware module that converts rectangular (x, y) coordinates to  magnitude (r) using efficient hardware-friendly algorithms.
 
 ## Technical Details
 - **Input**: 8-bit x and y coordinates
@@ -11,7 +10,7 @@ This Tiny Tapeout project implements a hardware module that converts rectangular
 
 ## Functionality
 The module computes the radius using the formula:
-\[ r = \sqrt{x^2 + y^2} \]
+[ r = sqrt{x^2 + y^2} ]
 
 ### Input and Output Specifications
 - **Inputs**:
