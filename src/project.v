@@ -11,48 +11,45 @@ module tt_um_rect_cyl (
     input  wire       rst_n    // Active-low reset
 );
 
-    // Use localparam for design constants
-    localparam SQRT_ITERATIONS = 6;
+    // Internal registers for computation
+    reg [15:0] x2, y2, r_squared;
+    reg [7:0] r_reg;
 
-    // Improved variable declarations with more explicit types
-    logic [15:0] x2, y2, r_squared;
-    logic [7:0] r_reg;
-    logic [7:0] sqrt_estimate;
-
-    // Function to compute an approximate square root more efficiently
-    function automatic logic [7:0] sqrt_approx(input logic [15:0] value);
-        logic [7:0] result, temp;
+    // Iterative square root approximation function
+    function automatic [7:0] sqrt_approx(input [15:0] value);
+        reg [7:0] result;
+        reg [15:0] temp;
+        integer i;
         begin
             result = 8'd1;
-            for (int i = 0; i < SQRT_ITERATIONS; i++) begin
+            for (i = 0; i < 8; i++) begin
                 temp = (result + value / result) >> 1;
-                result = temp;
+                result = temp[7:0];
             end
             return result;
         end
     endfunction
 
-    // Synchronous logic with more explicit reset handling
-    always_ff @(posedge clk or negedge rst_n) begin
+    // Main computational logic
+    always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            x2 <= '0;
-            y2 <= '0;
-            r_squared <= '0;
-            r_reg <= '0;
+            x2 <= 16'd0;
+            y2 <= 16'd0;
+            r_squared <= 16'd0;
+            r_reg <= 8'd0;
         end else if (ena) begin
-            // Compute squared values using explicit multiply
+            // Compute squared values
             x2 <= ui_in * ui_in;
             y2 <= uio_in * uio_in;
             r_squared <= x2 + y2;
 
-            // Compute square root using approximation
-            sqrt_estimate <= sqrt_approx(r_squared);
-            r_reg <= sqrt_estimate;
+            // Compute magnitude using square root approximation
+            r_reg <= sqrt_approx(r_squared);
         end
     end
 
-    // Outputs with explicit assignment
-    assign uo_out = r_reg;      // Magnitude output (r)
+    // Outputs
+    assign uo_out = r_reg;
     assign uio_oe = 8'b11111111; // Set all IOs to output mode
 
 endmodule
