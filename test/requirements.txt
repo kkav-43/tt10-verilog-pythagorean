@@ -1,2 +1,4 @@
 pytest==8.3.4
 cocotb==1.9.2
+pytest-cov==4.1.0  # Added code coverage
+hypothesis==6.88.1  # Property-based testing
